@@ -1,8 +1,8 @@
 FROM ubuntu:latest
 
 # build 
-# docker build -t riskman-pipeline .
-# docker build -t riskman-pipeline . --progress=plain
+# docker build -t semeco-q2-pipeline .
+# docker build -t semeco-q2-pipeline . --progress=plain
 
 # use bash to have the "source" command and activate the environment
 SHELL ["/bin/bash", "-c"] 
