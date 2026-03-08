@@ -1,8 +1,8 @@
 FROM ubuntu:latest
 
 # build
-# docker build -t riskman-pipeline:reasoner -f Dockerfile.reasoner .
-# docker build -t riskman-pipeline:reasoner -f Dockerfile.reasoner . --progress=plain
+# docker build -t semeco-q2-pipeline:reasoner -f Dockerfile.reasoner .
+# docker build -t semeco-q2-pipeline:reasoner -f Dockerfile.reasoner . --progress=plain
 
 # use bash to have the "source" command and activate the environment
 SHELL ["/bin/bash", "-c"]
