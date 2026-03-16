@@ -76,7 +76,6 @@ if [ "$mode" == "html" ]; then
     modeHtml
 elif [ "$mode" == "abox" ]; then
     modeAbox
-fi
 else
     echo "Unknown mode: $mode" >&2
     echo "Usage: $0 -m [html|abox] -e [plain|riskman|secuman] [-p prob] [-s sev]" >&2
