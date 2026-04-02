@@ -16,5 +16,5 @@ java -jar $jar_location $tmp_file $output_file hermit >&2
 # print the output
 cat $output_file
 
-rm "$tmp_file" "$output_file"
+rm "$tmp_file" #"$output_file"
 

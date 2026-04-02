@@ -14,14 +14,22 @@ enrichment="plain" # plain, riskman, secuman, default plain
 prob=""
 sev=""
 
-while getopts "m:e:p:s:" opt; do
+#Secuman parameters (attacker profile, vulnerability level, impact level)
+ap=""
+vl=""
+il=""
+
+while getopts "m:e:p:s:A:V:I:" opt; do
     case "$opt" in
         m) mode="$OPTARG" ;;
         e) enrichment="$OPTARG" ;;
         p) prob="$OPTARG" ;;
         s) sev="$OPTARG" ;;
+        A) ap="$OPTARG" ;;
+        V) vl="$OPTARG" ;;
+        I) il="$OPTARG" ;;
         *)
-            echo "Usage: $0 -m [html|abox] -e [plain|riskman|secuman] [-p prob] [-s sev]" >&2
+            echo "Usage: $0 -m [html|abox] -e [plain|riskman|secuman] [-p prob] [-s sev] [-A ap] [-V vl] [-I il]" >&2
             exit 1
             ;;
     esac
@@ -46,13 +54,15 @@ run_enrichment() {
             ./prob_sev.sh -p "$prob" -s "$sev"
             ;;
         secuman)
-            #./secuman_enrichment.sh 
-            #Stub for now
-            cat
+            if [ -z "$ap" ] || [ -z "$vl" ] || [ -z "$il" ]; then
+                echo "SecuMan enrichment requires -A, -V, and -I" >&2
+                exit 1
+            fi
+            ./secuman_enrichment.sh -A "$ap" -V "$vl" -I "$il"
             ;;
         *)
             echo "Unknown enrichment: $enrichment" >&2
-            echo "Usage: $0 -m [html|abox] -e [plain|riskman|secuman] [-p prob] [-s sev]" >&2
+            echo "Usage: $0 -m [html|abox] -e [plain|riskman|secuman] [-p prob] [-s sev] [-A ap] [-V vl] [-I il]" >&2
             exit 1
             ;;
     esac
@@ -78,7 +88,7 @@ elif [ "$mode" == "abox" ]; then
     modeAbox
 else
     echo "Unknown mode: $mode" >&2
-    echo "Usage: $0 -m [html|abox] -e [plain|riskman|secuman] [-p prob] [-s sev]" >&2
+    echo "Usage: $0 -m [html|abox] -e [plain|riskman|secuman] [-p prob] [-s sev] [-A ap] [-V vl] [-I il]" >&2
     exit 1
 fi
 

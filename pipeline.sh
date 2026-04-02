@@ -12,8 +12,15 @@ abox=""
 ontology=""
 shapes=""
 #
+
+#Riskman enrichement options
 prob=5
 sev=5
+
+#Secuman enrichement option (attacker-profile, vulnerability-level, impact-level)
+ap=5
+vl=5
+il=5
 
 mode="html" # html or abox, default html
 enrichment="plain"   # plain, riskman, secuman - default plain
@@ -28,7 +35,7 @@ enrichment="plain"   # plain, riskman, secuman - default plain
 
 
 
-while getopts "h:a:o:c:p:s:m:e:" opt; do
+while getopts "h:a:o:c:p:s:A:V:I:m:e:" opt; do
     case "$opt" in
         h) html="$OPTARG" ;;
         a) abox="$OPTARG" ;;
@@ -38,8 +45,11 @@ while getopts "h:a:o:c:p:s:m:e:" opt; do
         s) sev="$OPTARG" ;;
         m) mode="$OPTARG" ;;
         e) enrichment="$OPTARG" ;;
+        A) ap="$OPTARG" ;;
+        V) vl="$OPTARG" ;;
+        I) il="$OPTARG" ;;
         *)
-            echo "Usage: $0 [-h html] [-a abox] -o ontology -c shapes -m [html|abox] -e [plain|riskman|secuman] [-p prob] [-s sev]" >&2
+            echo "Usage: $0 [-h html] [-a abox] -o ontology -c shapes -m [html|abox] -e [plain|riskman|secuman] [-p prob] [-s sev] [-A ap] [-V vl] [-I il]" >&2
             exit 1
             ;;
     esac
@@ -60,6 +70,12 @@ modeHtml() {
             -v "$(realpath "$ontology")":"$containerPath/$ontologyTarget" \
             -v "$(realpath "$shapes")":"$containerPath/$shapesTarget" \
             -t "$containerName" -p "$prob" -s "$sev" -m html -e "$enrichment"
+    elif [ "$enrichment" = "secuman" ]; then
+        docker run \
+            -v "$(realpath "$html")":"$containerPath/$htmlTarget" \
+            -v "$(realpath "$ontology")":"$containerPath/$ontologyTarget" \
+            -v "$(realpath "$shapes")":"$containerPath/$shapesTarget" \
+            -t "$containerName" -A "$ap" -V "$vl" -I "$il" -m html -e "$enrichment"
     else
         docker run \
             -v "$(realpath "$html")":"$containerPath/$htmlTarget" \
@@ -72,7 +88,7 @@ modeHtml() {
 # option 2
 # directly providing ABox 
 modeAbox() {
-     if [ -z "$abox" ] || [ -z "$ontology" ] || [ -z "$shapes" ]; then
+    if [ -z "$abox" ] || [ -z "$ontology" ] || [ -z "$shapes" ]; then
         echo "ABox mode requires -a, -o, and -c" >&2
         exit 1
     fi
@@ -83,6 +99,12 @@ modeAbox() {
             -v "$(realpath "$ontology")":"$containerPath/$ontologyTarget" \
             -v "$(realpath "$shapes")":"$containerPath/$shapesTarget" \
             -t "$containerName" -p "$prob" -s "$sev" -m abox -e "$enrichment"
+    elif [ "$enrichment" = "secuman" ]; then
+        docker run \
+            -v "$(realpath "$abox")":"$containerPath/$aboxTarget" \
+            -v "$(realpath "$ontology")":"$containerPath/$ontologyTarget" \
+            -v "$(realpath "$shapes")":"$containerPath/$shapesTarget" \
+            -t "$containerName" -A "$ap" -V "$vl" -I "$il" -m abox -e "$enrichment"
     else
         docker run \
             -v "$(realpath "$abox")":"$containerPath/$aboxTarget" \
@@ -96,9 +118,9 @@ if [ "$mode" == "html" ]; then
     modeHtml
 elif [ "$mode" == "abox" ]; then
     modeAbox
-fi
 else
     echo "Unknown mode: $mode" >&2
-    echo "Usage: $0 [-h html] [-a abox] -o ontology -c shapes -m [html|abox] -e [plain|riskman|secuman] [-p prob] [-s sev]" >&2
+    echo "Usage: $0 [-h html] [-a abox] -o ontology -c shapes -m [html|abox] -e [plain|riskman|secuman] [-p prob] [-s sev] [-A ap] [-V vl] [-I il]" >&2
     exit 1
 fi
+
