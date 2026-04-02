@@ -60,7 +60,7 @@ if __name__ == '__main__':
     ap_max = int(sys.argv[1])
     vl_max = int(sys.argv[2])
 #    lf_max = int(sys.argv[3])
-    il_max = int(sys.argv[4])
+    il_max = int(sys.argv[3])
 
     output_str = PREFIXES + NEWLINE * 2 + GT_PROPERTY + NEWLINE * 2
 

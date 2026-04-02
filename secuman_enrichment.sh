@@ -53,10 +53,13 @@ fi
 
 input_triples=$(cat)
 
+
+
 output="$($python_path secuman_enrichment.py \
   "$attacker_profiles" \
   "$vulnerability_levels" \
-#  "$likelihood_factors" \
   "$impact_levels")"
+
+#Previously also included:  "$likelihood_factors" \
 
 echo -e "$input_triples\n\n$output"
