@@ -32,23 +32,7 @@ Two container variants are included:
 - `riskman` -- adds Riskman probability/severity enrichment
 - `secuman` -- adds Secuman attacker/vulnerability/impact enrichment
 
-## Project structure
 
-```text
-.
-├── Dockerfile
-├── Dockerfile.reasoner
-├── main.sh
-├── main-reasoner.sh
-├── rdf_distiller.py
-├── reasoner.sh
-├── validator.sh
-├── prob_sev.py
-├── secuman_enrichment.py
-└── test-cases/
-    ├── riskman/
-    └── secuman/
-```
 
 ## Build
 
