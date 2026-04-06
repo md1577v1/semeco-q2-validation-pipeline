@@ -1,0 +1,284 @@
+@prefix cc: <http://creativecommons.org/ns#> .
+@prefix ctag: <http://commontag.org/ns#> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix dc11: <http://purl.org/dc/elements/1.1/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix gr: <http://purl.org/goodrelations/v1#> .
+@prefix grddl: <http://www.w3.org/2003/g/data-view#> .
+@prefix hcalendar: <http://microformats.org/profile/hcalendar#> .
+@prefix hcard: <http://microformats.org/profile/hcard#> .
+@prefix ical: <http://www.w3.org/2002/12/cal/icaltzd#> .
+@prefix ma: <http://www.w3.org/ns/ma-ont#> .
+@prefix md: <http://www.w3.org/ns/md#> .
+@prefix og: <http://ogp.me/ns#> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix qb: <http://purl.org/linked-data/cube#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfa: <http://www.w3.org/ns/rdfa#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rev: <http://purl.org/stuff/rev#> .
+@prefix rif: <http://www.w3.org/2007/rif#> .
+@prefix secuman: <http://example.com/secuman/ontology#> .
+#@prefix riskman: <https://w3id.org/riskman/ontology#> .
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+@prefix schema: <http://schema.org/> .
+@prefix sd: <http://www.w3.org/ns/sparql-service-description#> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix skosxl: <http://www.w3.org/2008/05/skos-xl#> .
+@prefix v: <http://rdf.data-vocabulary.org/#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix wdr: <http://www.w3.org/2007/05/powder#> .
+@prefix wdrs: <http://www.w3.org/2007/05/powder-s#> .
+@prefix xhv: <http://www.w3.org/1999/xhtml/vocab#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ex: <http://example.org#> .
+#@prefix rlevel: <https://w3id.org/riskman/ontology#> .
+
+
+
+# Context
+
+ex:contextSpecificThreat1 a secuman:ContextSpecificThreat ;
+    secuman:hasOperatingEnvironment ex:operatingEnvironment1 ;
+    secuman:hasProduct ex:product1 ;
+    secuman:hasAttackType ex:attackType1 ;
+    secuman:hasProtectionGoal  secuman:Confidentiality ;
+    dc:identifier "cst1" .
+
+ex:operatingEnvironment1 a secuman:OperatingEnvironment ;
+    secuman:hasNetworkSecurity ex:networkSecurity1 ;
+    secuman:hasPhysicalSecurity ex:physicalSecurity1 ;
+    secuman:hasSystemAndPlatformSecurity ex:systemAndPlatformSecurity1 ;
+    dc:identifier "oe1" .
+
+ex:networkSecurity1 a secuman:NetworkSecurity ;
+    dc:identifier "ns1" ;
+    rdfs:label "No network connectivity" .
+
+ex:physicalSecurity1 a secuman:PhysicalSecurity ;
+    dc:identifier "ps1" ;
+    rdfs:label "Für alles medizinisches Personal im Zugriff" .
+
+ex:systemAndPlatformSecurity1 a secuman:SystemAndPlatformSecurity ;
+    dc:identifier "saps1" ;
+    rdfs:label "Standard Windows, no additional" .
+
+ex:product1 a secuman:Product ;
+    secuman:hasIdentityAndAccessManagement ex:identityAndAccessManagement1 ;
+    secuman:hasDataSecurityAndPrivacy ex:dataSecurityAndPrivacy1 ;
+    secuman:hasOperationsAndMaintenance ex:operationsAndMaintenance1 ;
+    dc:identifier "p1" .
+
+ex:identityAndAccessManagement1 a secuman:IdentityAndAccessManagement ;
+    dc:identifier "iaam1" ;
+    rdfs:label "No existing measures" .
+
+ex:dataSecurityAndPrivacy1 a secuman:DataSecurityAndPrivacy ;
+    dc:identifier "dsap1" ;
+    rdfs:label "No existing measures" .
+
+ex:operationsAndMaintenance1 a secuman:OperationsAndMaintenance ;
+    dc:identifier "oam1" ;
+    rdfs:label "No existing measures" .
+
+ex:attackType1 a secuman:AttackType ;
+    dc:identifier "at1" ;
+    rdfs:label "Physical access" .
+
+
+# Assessment 
+
+ex:analyzedSecurityRisk1 a secuman:AnalyzedSecurityRisk ;
+    secuman:hasContextSpecificThreat ex:contextSpecificThreat1 ;
+    secuman:hasInitialSecurityRiskLevel ex:securityRiskLevel2 ;
+    secuman:hasImpact   ex:impact1 ;
+    secuman:hasComponent ex:component1 ;
+    secuman:hasAsset ex:asset1 ;
+    dc:identifier "asr1" .
+
+
+ex:securityRiskLevel2 a secuman:SecurityRiskLevel ;
+    secuman:hasImpactLevel ex:impactLevel1 ;
+    secuman:hasLikelihoodFactor ex:likelihoodFactor2 ;
+    dc:identifier "srl2" .
+
+
+ex:likelihoodFactor2 a secuman:LikelihoodFactor ;
+    secuman:hasAttackerProfile ex:attackerProfile2 ;
+    secuman:hasVulnerabilityLevel ex:vulnerabilityLevel1 ;
+    dc:identifier "lf2" .
+
+ex:attackerProfile2 a secuman:AttackerProfile ;
+    dc:identifier "ap2" ;
+    rdfs:label "Script Kiddy" .
+
+ex:impact1 a secuman:Impact ;
+    secuman:hasSafetyImpactAssessment ex:impactAssessment1 ; 
+    dc:identifier "i1" ;
+    rdfs:label "Patientendaten ausgelesen (Diebstahl), DSGVO Verstoß" .
+
+ex:component1 a secuman:Component ;
+    dc:identifier "c1" ;
+    rdfs:label "User Interface" .
+
+ex:asset1 a secuman:Asset ;
+    dc:identifier "a1" ;
+    rdfs:label "Patientendaten" .
+
+
+ex:impactAssessment1 a secuman:ImpactAssessment ;
+    secuman:isAffected "false"^^xsd:boolean ;
+    dc:identifier "ia1" .
+
+
+
+# Control
+
+
+ex:controlledSecurityRisk1 a secuman:ControlledSecurityRisk ;
+    secuman:hasAnalyzedSecurityRisk ex:analyzedSecurityRisk1 ;
+    secuman:hasResidualSecurityRiskLevel ex:securityRiskLevel1 ;
+    secuman:isMitigatedBy ex:sda0 ;
+    dc:identifier "csr1" .
+
+ex:securityRiskLevel1 a secuman:SecurityRiskLevel ;
+    secuman:hasImpactLevel ex:impactLevel1 ;
+    secuman:hasLikelihoodFactor ex:likelihoodFactor1 ;
+    dc:identifier "srl1" .
+
+ex:impactLevel1 a secuman:ImpactLevel ;
+    dc:identifier "il1" ;
+    rdfs:label "Medium" .
+
+ex:likelihoodFactor1 a secuman:LikelihoodFactor ;
+    secuman:hasAttackerProfile ex:attackerProfile1 ;
+    secuman:hasVulnerabilityLevel ex:vulnerabilityLevel1 ;
+    dc:identifier "lf1" .
+
+ex:attackerProfile1 a secuman:AttackerProfile ;
+    dc:identifier "ap1" ;
+    rdfs:label "Pentester" .
+
+ex:vulnerabilityLevel1 a secuman:VulnerabilityLevel ;
+    dc:identifier "ap1" ;
+    rdfs:label "Bekannt/ leicht detektierbar/ limited access = 3" .
+
+
+# SecDAs
+
+
+
+ex:sda0 a secuman:SecDA ;
+    secuman:hasTestReport ex:testReport1 ;
+    secuman:hasStrategy ex:strategy1 ; 
+    secuman:hasSubSecDA ex:sda1 ;
+    secuman:hasSubSecDA ex:sda2 ;
+    secuman:hasSafetyImpactAssessment ex:impactAssessment2 ;
+    secuman:hasSecurityImpactAssessment ex:impactAssessment3 ;
+    dc:identifier "sda0".
+
+ex:testReport1 a secuman:TestReport ;
+    dc:identifier "tr1" ;
+    rdfs:label "Verweis auf Testergebnis (nur starke PW  werden akzeptiert, nur Anmeldung mit zweitem Faktor möglich), Verweis auf Penetrationstest" .
+
+ex:strategy1 a secuman:Strategy ;
+    dc:identifier "s1" ;
+    rdfs:label "Durch Authentisierung/ Authentifizierung, Likelihood reduzieren, präventiv, damit nur befugte/vertrauenswürdige Personen Zugriff haben" .
+
+
+ex:impactAssessment2 a secuman:ImpactAssessment ;
+    secuman:isAffected "false"^^xsd:boolean ;
+    dc:identifier "ia2" .
+
+ex:impactAssessment3 a secuman:ImpactAssessment ;
+    secuman:isAffected "false"^^xsd:boolean ;
+    dc:identifier "ia3" .
+
+
+ex:sda1 a secuman:SecDA ;
+    secuman:hasStrategy ex:strategy2 ;
+    secuman:hasInterventionMethod ex:interventionMethod1 ;
+    secuman:hasLocationOfIntervention ex:locationOfIntervention1 ;
+    secuman:hasOrganisationalContextOfIntervention ex:organisationalContextOfIntervention1 ;
+    secuman:hasAssumption ex:assumption1 ;
+    secuman:hasSafetyImpactAssessment ex:impactAssessment4 ;
+    secuman:hasSecurityImpactAssessment ex:impactAssessment5 ;
+    secuman:hasImplementationManifest ex:implementationManifest1 ;
+    dc:identifier "sda1".
+
+ex:strategy2 a secuman:Strategy ;
+    dc:identifier "s2" ;
+    rdfs:label "Durch Passwort Sicherheit, Likelihood reduzieren, präventiv, damit nur befugte/vertrauenswürdige Personen Zugriff haben" .
+
+ex:interventionMethod1 a secuman:InterventionMethod ;
+    dc:identifier "im1" ;
+    rdfs:label "Einführung einer Passwort-Policy (mind. 12 Zeichen, Sonderzeichen, Ablauf nach 90 Tagen) " .
+
+ex:locationOfIntervention1 a secuman:LocationOfIntervention ;
+    dc:identifier "loi1" ;
+    rdfs:label "Ort: Login-Service des internen Mitarbeitersystems („intranet.company.com/login“)" .
+
+ex:organisationalContextOfIntervention1 a secuman:OrganisationalContextOfIntervention ;
+    dc:identifier "oc1" ;
+    rdfs:label "Kontext: Konzernrichtlinie „Access Control 101“. Verantwortlich: IT-Security-Team. Lebenszyklusphase: Operation" .
+
+ex:assumption1 a secuman:Assumption ;
+    dc:identifier "a1" ;
+    rdfs:label "Identitäten werden established; PW nicht auf Post-it am Gerät" .
+
+ex:impactAssessment4 a secuman:ImpactAssessment ;
+    secuman:isAffected "true"^^xsd:boolean ;
+    dc:identifier "ia4" .
+
+ex:impactAssessment5 a secuman:ImpactAssessment ;
+    secuman:isAffected "false"^^xsd:boolean ;
+    dc:identifier "ia5" .
+
+ex:implementationManifest1 a secuman:ImplementationManifest ;
+    dc:identifier "im1" ;
+    rdfs:label "Verweis auf Konfiguration, dass Verschlüsselung aktiviert ist." .
+
+
+
+ex:sda2 a secuman:SecDA ;
+    secuman:hasStrategy ex:strategy3 ;
+    secuman:hasInterventionMethod ex:interventionMethod2 ;
+    secuman:hasLocationOfIntervention ex:locationOfIntervention1 ;
+    secuman:hasOrganisationalContextOfIntervention ex:organisationalContextOfIntervention1 ;
+    secuman:hasAssumption ex:assumption2 ;
+    secuman:hasSafetyImpactAssessment ex:impactAssessment6 ;
+    secuman:hasSecurityImpactAssessment ex:impactAssessment7 ;
+    secuman:hasImplementationManifest ex:implementationManifest2 ;
+    dc:identifier "sda2".
+
+ex:strategy3 a secuman:Strategy ;
+    dc:identifier "s3" ;
+    rdfs:label "Durch zwei Factor Authentifizierung, Likelihood reduzieren, präventiv, damit nur befugte/vertrauenswürdige Personen Zugriff haben" .
+
+ex:interventionMethod2 a secuman:InterventionMethod ;
+    dc:identifier "im2" ;
+    rdfs:label "Aktivierung von 2FA mit Authenticator-App" .
+
+
+ex:assumption2 a secuman:Assumption ;
+    dc:identifier "a2" ;
+    rdfs:label "Authenticator- App wird nicht auf fest installiertem Gerät direkt daneben genutzt" .
+
+ex:implementationManifest2 a secuman:ImplementationManifest ;
+    dc:identifier "im2" ;
+    rdfs:label "Verweis auf Konfiguration, dass zweiter Faktor aktiviert ist" .
+
+ex:impactAssessment6 a secuman:ImpactAssessment ;
+    secuman:isAffected "false"^^xsd:boolean ;
+    dc:identifier "ia6" .
+
+ex:impactAssessment7 a secuman:ImpactAssessment ;
+    secuman:isAffected "false"^^xsd:boolean ;
+    dc:identifier "ia7" .

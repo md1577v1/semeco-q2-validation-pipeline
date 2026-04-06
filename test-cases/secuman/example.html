@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en"
+      prefix="ex: http://example.org#
+              secuman: http://example.com/secuman/ontology#
+              dc: http://purl.org/dc/terms/
+              rdfs: http://www.w3.org/2000/01/rdf-schema#
+              xsd: http://www.w3.org/2001/XMLSchema#">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Integrated HTML + RDFa for example.ttl</title>
+  <style>
+    :root {
+      --ink: #0f172a;
+      --muted: #475569;
+      --line: #e2e8f0;
+      --bg: #ffffff;
+      --block: #f8fafc;
+      --accent: #eef2ff;
+      --accent2: #f8fafc;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: Inter, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      margin: 0;
+      line-height: 1.5;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .page-header {
+      padding-bottom: 18px;
+      border-bottom: 3px solid #334155;
+      margin-bottom: 24px;
+    }
+    .page-header h1 {
+      margin: 0 0 6px 0;
+      font-size: 26px;
+    }
+    .note {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 0;
+    }
+    .risk-entry {
+      margin-top: 8px;
+    }
+    .entry-header {
+      padding-bottom: 14px;
+      border-bottom: 2px solid #334155;
+      margin-bottom: 22px;
+    }
+    .entry-header h2 {
+      margin: 0;
+      font-size: 22px;
+    }
+    .nav {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+    .nav a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+    .nav a:hover { text-decoration: underline; }
+    .section {
+      margin-bottom: 30px;
+    }
+    .section > h3 {
+      font-size: 19px;
+      margin: 0 0 12px 0;
+    }
+    .section-note {
+      font-size: 13px;
+      color: var(--muted);
+      margin: 0 0 12px 0;
+    }
+    .table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+    }
+    .table th,
+    .table td {
+      padding: 14px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+    .table tr:last-child th,
+    .table tr:last-child td {
+      border-bottom: 0;
+    }
+    .table th {
+      width: 250px;
+      background: var(--accent);
+      text-align: left;
+      font-weight: 700;
+      border-right: 1px solid var(--line);
+    }
+    .card {
+      background: var(--block);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+    }
+    .stack > * + * { margin-top: 10px; }
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .mini {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+    }
+    .subtle {
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: .02em;
+    }
+    .value { font-size: 14px; }
+    .nested {
+      margin-top: 12px;
+      padding: 12px;
+      border-left: 3px solid #c7d2fe;
+      background: var(--accent2);
+      border-radius: 6px;
+    }
+    .nested > .nested-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 10px;
+    }
+    .plain-list {
+      margin: 0;
+      padding-left: 18px;
+    }
+    .plain-list li + li { margin-top: 6px; }
+    .codeish {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    @media (max-width: 760px) {
+      .table th { width: 38%; }
+      .mini-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- RDFa fix: body <link ... href=...> replaced by invisible <meta ... resource=... /> -->
+  <div class="container">
+
+   
+
+    <article class="risk-entry">
+      <header class="entry-header">
+        <h2>Security risk example</h2>
+        <div class="nav">
+          Jump to:
+          <a href="#context">Context</a> •
+          <a href="#assessment">Assessment</a> •
+          <a href="#control">Control</a> •
+          <a href="#secda">SecDAs</a>
+        </div>
+      </header>
+
+      <!-- ========================= -->
+      <!-- ContextSpecificThreat     -->
+      <!-- ========================= -->
+      <section id="context"
+               class="section"
+               resource="ex:contextSpecificThreat1"
+               typeof="secuman:ContextSpecificThreat">
+               <meta property="dc:identifier" content="cst1">
+        <h3>Context</h3>
+
+        <meta property="secuman:hasOperatingEnvironment" resource="ex:operatingEnvironment1" />
+<meta property="secuman:hasProduct" resource="ex:product1" />
+<meta property="secuman:hasAttackType" resource="ex:attackType1" />
+<meta property="secuman:hasProtectionGoal" resource="secuman:Confidentiality" />
+<table class="table">
+          <tbody>
+            <tr>
+              <th scope="row">Operating environment</th>
+              <td>
+                <!-- One visible card per RDF subject is a useful adaptation pattern. -->
+                <div class="card stack"
+                     resource="ex:operatingEnvironment1"
+                     typeof="secuman:OperatingEnvironment">
+                  <meta property="dc:identifier" content="oe1">
+
+                  <meta property="secuman:hasNetworkSecurity" resource="ex:networkSecurity1" />
+<meta property="secuman:hasPhysicalSecurity" resource="ex:physicalSecurity1" />
+<meta property="secuman:hasSystemAndPlatformSecurity" resource="ex:systemAndPlatformSecurity1" />
+<div class="mini-grid">
+                    <div class="mini" resource="ex:networkSecurity1" typeof="secuman:NetworkSecurity">
+                      <div class="subtle">Network security</div>
+                      <meta property="dc:identifier" content="ns1">
+                      <div class="value" property="rdfs:label">No network connectivity</div>
+                    </div>
+
+                    <div class="mini" resource="ex:physicalSecurity1" typeof="secuman:PhysicalSecurity">
+                      <div class="subtle">Physical security</div>
+                      <meta property="dc:identifier" content="ps1">
+                      <div class="value" property="rdfs:label">Für alles medizinisches Personal im Zugriff</div>
+                    </div>
+
+                    <div class="mini" resource="ex:systemAndPlatformSecurity1" typeof="secuman:SystemAndPlatformSecurity">
+                      <div class="subtle">System and platform security</div>
+                      <meta property="dc:identifier" content="saps1">
+                      <div class="value" property="rdfs:label">Standard Windows, no additional</div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Product</th>
+              <td>
+                <div class="card stack"
+                     resource="ex:product1"
+                     typeof="secuman:Product">
+                  <meta property="dc:identifier" content="p1">
+
+                  <meta property="secuman:hasIdentityAndAccessManagement" resource="ex:identityAndAccessManagement1" />
+<meta property="secuman:hasDataSecurityAndPrivacy" resource="ex:dataSecurityAndPrivacy1" />
+<meta property="secuman:hasOperationsAndMaintenance" resource="ex:operationsAndMaintenance1" />
+<div class="mini-grid">
+                    <div class="mini" resource="ex:identityAndAccessManagement1" typeof="secuman:IdentityAndAccessManagement">
+                      <div class="subtle">Identity and access management</div>
+                      <meta property="dc:identifier" content="iaam1">
+                      <div class="value" property="rdfs:label">No existing measures</div>
+                    </div>
+
+                    <div class="mini" resource="ex:dataSecurityAndPrivacy1" typeof="secuman:DataSecurityAndPrivacy">
+                      <div class="subtle">Data security and privacy</div>
+                      <meta property="dc:identifier" content="dsap1">
+                      <div class="value" property="rdfs:label">No existing measures</div>
+                    </div>
+
+                    <div class="mini" resource="ex:operationsAndMaintenance1" typeof="secuman:OperationsAndMaintenance">
+                      <div class="subtle">Operations and maintenance</div>
+                      <meta property="dc:identifier" content="oam1">
+                      <div class="value" property="rdfs:label">No existing measures</div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Attack type</th>
+              <td>
+                <div class="card" resource="ex:attackType1" typeof="secuman:AttackType">
+                  <meta property="dc:identifier" content="at1">
+                  <div class="value" property="rdfs:label">Physical access</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Protection goal</th>
+              <td>
+                <div class="card" resource="secuman:Confidentiality">
+                  <div class="value">Confidentiality</div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ========================= -->
+      <!-- AnalyzedSecurityRisk      -->
+      <!-- ========================= -->
+      <section id="assessment"
+               class="section"
+               resource="ex:analyzedSecurityRisk1"
+               typeof="secuman:AnalyzedSecurityRisk">
+        <meta property="dc:identifier" content="asr1">
+        <h3>Assessment</h3>
+        
+
+        <meta property="secuman:hasContextSpecificThreat" resource="ex:contextSpecificThreat1" />
+<meta property="secuman:hasInitialSecurityRiskLevel" resource="ex:securityRiskLevel2" />
+<meta property="secuman:hasImpact" resource="ex:impact1" />
+<meta property="secuman:hasComponent" resource="ex:component1" />
+<meta property="secuman:hasAsset" resource="ex:asset1" />
+<table class="table">
+          <tbody>
+            <tr>
+              <th scope="row">Initial security risk level</th>
+              <td>
+                <div class="card stack"
+                     resource="ex:securityRiskLevel2"
+                     typeof="secuman:SecurityRiskLevel">
+                  <meta property="dc:identifier" content="srl2">
+
+                  <meta property="secuman:hasImpactLevel" resource="ex:impactLevel1" />
+<meta property="secuman:hasLikelihoodFactor" resource="ex:likelihoodFactor2" />
+<div class="mini-grid">
+                    <div class="mini" resource="ex:impactLevel1" typeof="secuman:ImpactLevel">
+                      <div class="subtle">Impact level</div>
+                      <meta property="dc:identifier" content="il1">
+                      <div class="value" property="rdfs:label">Medium</div>
+                    </div>
+
+                    <div class="mini stack" resource="ex:likelihoodFactor2" typeof="secuman:LikelihoodFactor">
+                      <div class="subtle">Likelihood factor</div><meta property="dc:identifier" content="lf2">
+
+                      <meta property="secuman:hasAttackerProfile" resource="ex:attackerProfile2" />
+<meta property="secuman:hasVulnerabilityLevel" resource="ex:vulnerabilityLevel1" />
+<div class="mini-grid">
+                        <div class="mini" resource="ex:attackerProfile2" typeof="secuman:AttackerProfile">
+                          <div class="subtle">Attacker profile</div>
+                          <meta property="dc:identifier" content="ap2">
+                          <div class="value" property="rdfs:label">Script Kiddy</div>
+                        </div>
+
+                        <div class="mini" resource="ex:vulnerabilityLevel1" typeof="secuman:VulnerabilityLevel">
+                          <div class="subtle">Vulnerability level</div>
+                          <meta property="dc:identifier" content="ap1">
+                          <div class="value" property="rdfs:label">Bekannt/ leicht detektierbar/ limited access = 3</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Impact</th>
+              <td>
+                <div class="card stack" resource="ex:impact1" typeof="secuman:Impact">
+                  <meta property="dc:identifier" content="i1">
+                  <div class="value" property="rdfs:label">Patientendaten ausgelesen (Diebstahl), DSGVO Verstoß</div>
+
+                  <meta property="secuman:hasSafetyImpactAssessment" resource="ex:impactAssessment1" />
+<div class="mini" resource="ex:impactAssessment1" typeof="secuman:ImpactAssessment">
+                    <div class="subtle">Safety impact assessment</div>
+                    <meta property="dc:identifier" content="ia1">
+                    <meta property="secuman:isAffected" content="false" datatype="xsd:boolean">
+                    <div class="value">Affected: false</div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Component</th>
+              <td>
+                <div class="card" resource="ex:component1" typeof="secuman:Component">
+                  <meta property="dc:identifier" content="c1">
+                  <div class="value" property="rdfs:label">User Interface</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Asset</th>
+              <td>
+                <div class="card" resource="ex:asset1" typeof="secuman:Asset">
+                  <meta property="dc:identifier" content="a1">
+                  <div class="value" property="rdfs:label">Patientendaten</div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ========================= -->
+      <!-- ControlledSecurityRisk    -->
+      <!-- ========================= -->
+      <section id="control"
+               class="section"
+               resource="ex:controlledSecurityRisk1"
+               typeof="secuman:ControlledSecurityRisk">
+        <meta property="dc:identifier" content="csr1">
+        <h3>Control</h3>
+      
+
+        <meta property="secuman:hasAnalyzedSecurityRisk" resource="ex:analyzedSecurityRisk1" />
+<meta property="secuman:hasResidualSecurityRiskLevel" resource="ex:securityRiskLevel1" />
+<meta property="secuman:isMitigatedBy" resource="ex:sda0" />
+<table class="table">
+          <tbody>
+            <tr>
+              <th scope="row">Residual security risk level</th>
+              <td>
+                <div class="card stack"
+                     resource="ex:securityRiskLevel1"
+                     typeof="secuman:SecurityRiskLevel">
+                  <meta property="dc:identifier" content="srl1">
+
+                  <meta property="secuman:hasImpactLevel" resource="ex:impactLevel1" />
+<meta property="secuman:hasLikelihoodFactor" resource="ex:likelihoodFactor1" />
+<div class="mini-grid">
+                    <div class="mini">
+                      <div class="subtle">Impact level</div>
+                      <div class="value">Medium</div>
+                    </div>
+
+                    <div class="mini stack" resource="ex:likelihoodFactor1" typeof="secuman:LikelihoodFactor">
+                      <div class="subtle">Likelihood factor</div><meta property="dc:identifier" content="lf1">
+
+                      <meta property="secuman:hasAttackerProfile" resource="ex:attackerProfile1" />
+<meta property="secuman:hasVulnerabilityLevel" resource="ex:vulnerabilityLevel1" />
+<div class="mini-grid">
+                        <div class="mini" resource="ex:attackerProfile1" typeof="secuman:AttackerProfile">
+                          <div class="subtle">Attacker profile</div>
+                          <meta property="dc:identifier" content="ap1">
+                          <div class="value" property="rdfs:label">Pentester</div>
+                        </div>
+
+                        <div class="mini">
+                          <div class="subtle">Vulnerability level</div>
+                          <div class="value">Bekannt/ leicht detektierbar/ limited access = 3</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Mitigating SecDA</th>
+              <td>
+                <div class="card stack" resource="ex:sda0" typeof="secuman:SecDA">
+                  <meta property="dc:identifier" content="sda0">
+
+                  <meta property="secuman:hasTestReport" resource="ex:testReport1" />
+<meta property="secuman:hasStrategy" resource="ex:strategy1" />
+<meta property="secuman:hasSubSecDA" resource="ex:sda1" />
+<meta property="secuman:hasSubSecDA" resource="ex:sda2" />
+<meta property="secuman:hasSafetyImpactAssessment" resource="ex:impactAssessment2" />
+<meta property="secuman:hasSecurityImpactAssessment" resource="ex:impactAssessment3" />
+<div class="mini-grid">
+                    <div class="mini" resource="ex:testReport1" typeof="secuman:TestReport">
+                      <div class="subtle">Test report</div>
+                      <meta property="dc:identifier" content="tr1">
+                      <div class="value" property="rdfs:label">Verweis auf Testergebnis (nur starke PW  werden akzeptiert, nur Anmeldung mit zweitem Faktor möglich), Verweis auf Penetrationstest</div>
+                    </div>
+
+                    <div class="mini" resource="ex:strategy1" typeof="secuman:Strategy">
+                      <div class="subtle">Top-level strategy</div>
+                      <meta property="dc:identifier" content="s1">
+                      <div class="value" property="rdfs:label">Durch Authentisierung/ Authentifizierung, Likelihood reduzieren, präventiv, damit nur befugte/vertrauenswürdige Personen Zugriff haben</div>
+                    </div>
+
+                    <div class="mini" resource="ex:impactAssessment2" typeof="secuman:ImpactAssessment">
+                      <div class="subtle">Safety impact assessment</div>
+                      <meta property="dc:identifier" content="ia2">
+                      <meta property="secuman:isAffected" content="false" datatype="xsd:boolean">
+                      <div class="value">Affected: false</div>
+                    </div>
+
+                    <div class="mini" resource="ex:impactAssessment3" typeof="secuman:ImpactAssessment">
+                      <div class="subtle">Security impact assessment</div>
+                      <meta property="dc:identifier" content="ia3">
+                      <meta property="secuman:isAffected" content="false" datatype="xsd:boolean">
+                      <div class="value">Affected: false</div>
+                    </div>
+                  </div>
+
+                  <div class="nested">
+                    <div class="nested-title">Sub-SecDAs are detailed in the next section</div>
+                    <ul class="plain-list">
+                      <li><a href="#sda1-block">SecDA sda1</a></li>
+                      <li><a href="#sda2-block">SecDA sda2</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ========================= -->
+      <!-- SecDA details             -->
+      <!-- ========================= -->
+      <section id="secda" class="section">
+        <h3>SecDA details</h3>
+
+        <table class="table">
+          <tbody>
+            <tr id="sda1-block">
+              <th scope="row">SecDA 1</th>
+              <td>
+                <div class="card stack" resource="ex:sda1" typeof="secuman:SecDA">
+                  <meta property="dc:identifier" content="sda1">
+
+                  <meta property="secuman:hasStrategy" resource="ex:strategy2" />
+<meta property="secuman:hasInterventionMethod" resource="ex:interventionMethod1" />
+<meta property="secuman:hasLocationOfIntervention" resource="ex:locationOfIntervention1" />
+<meta property="secuman:hasOrganisationalContextOfIntervention" resource="ex:organisationalContextOfIntervention1" />
+<meta property="secuman:hasAssumption" resource="ex:assumption1" />
+<meta property="secuman:hasSafetyImpactAssessment" resource="ex:impactAssessment4" />
+<meta property="secuman:hasSecurityImpactAssessment" resource="ex:impactAssessment5" />
+<meta property="secuman:hasImplementationManifest" resource="ex:implementationManifest1" />
+<div class="mini-grid">
+                    <div class="mini" resource="ex:strategy2" typeof="secuman:Strategy">
+                      <div class="subtle">Strategy</div>
+                      <meta property="dc:identifier" content="s2">
+                      <div class="value" property="rdfs:label">Durch Passwort Sicherheit, Likelihood reduzieren, präventiv, damit nur befugte/vertrauenswürdige Personen Zugriff haben</div>
+                    </div>
+
+                    <div class="mini" resource="ex:interventionMethod1" typeof="secuman:InterventionMethod">
+                      <div class="subtle">Intervention method</div>
+                      <meta property="dc:identifier" content="im1">
+                      <div class="value" property="rdfs:label">Einführung einer Passwort-Policy (mind. 12 Zeichen, Sonderzeichen, Ablauf nach 90 Tagen) </div>
+                    </div>
+
+                    <div class="mini" resource="ex:locationOfIntervention1" typeof="secuman:LocationOfIntervention">
+                      <div class="subtle">Location of intervention</div>
+                      <meta property="dc:identifier" content="loi1">
+                      <div class="value" property="rdfs:label">Ort: Login-Service des internen Mitarbeitersystems („intranet.company.com/login“)</div>
+                    </div>
+
+                    <div class="mini" resource="ex:organisationalContextOfIntervention1" typeof="secuman:OrganisationalContextOfIntervention">
+                      <div class="subtle">Organisational context</div>
+                      <meta property="dc:identifier" content="oc1">
+                      <div class="value" property="rdfs:label">Kontext: Konzernrichtlinie „Access Control 101“. Verantwortlich: IT-Security-Team. Lebenszyklusphase: Operation</div>
+                    </div>
+
+                    <div class="mini" resource="ex:assumption1" typeof="secuman:Assumption">
+                      <div class="subtle">Assumption</div>
+                      <meta property="dc:identifier" content="a1">
+                      <div class="value" property="rdfs:label">Identitäten werden established; PW nicht auf Post-it am Gerät</div>
+                    </div>
+
+                    <div class="mini" resource="ex:implementationManifest1" typeof="secuman:ImplementationManifest">
+                      <div class="subtle">Implementation manifest</div>
+                      <meta property="dc:identifier" content="im1">
+                      <div class="value" property="rdfs:label">Verweis auf Konfiguration, dass Verschlüsselung aktiviert ist.</div>
+                    </div>
+
+                    <div class="mini" resource="ex:impactAssessment4" typeof="secuman:ImpactAssessment">
+                      <div class="subtle">Safety impact assessment</div>
+                      <meta property="dc:identifier" content="ia4">
+                      <meta property="secuman:isAffected" content="true" datatype="xsd:boolean">
+                      <div class="value">Affected: true</div>
+                    </div>
+
+                    <div class="mini" resource="ex:impactAssessment5" typeof="secuman:ImpactAssessment">
+                      <div class="subtle">Security impact assessment</div>
+                      <meta property="dc:identifier" content="ia5">
+                      <meta property="secuman:isAffected" content="false" datatype="xsd:boolean">
+                      <div class="value">Affected: false</div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr id="sda2-block">
+              <th scope="row">SecDA 2</th>
+              <td>
+                <div class="card stack" resource="ex:sda2" typeof="secuman:SecDA">
+                  <meta property="dc:identifier" content="sda2">
+
+                  <meta property="secuman:hasStrategy" resource="ex:strategy3" />
+<meta property="secuman:hasInterventionMethod" resource="ex:interventionMethod2" />
+<meta property="secuman:hasLocationOfIntervention" resource="ex:locationOfIntervention1" />
+<meta property="secuman:hasOrganisationalContextOfIntervention" resource="ex:organisationalContextOfIntervention1" />
+<meta property="secuman:hasAssumption" resource="ex:assumption2" />
+<meta property="secuman:hasSafetyImpactAssessment" resource="ex:impactAssessment6" />
+<meta property="secuman:hasSecurityImpactAssessment" resource="ex:impactAssessment7" />
+<meta property="secuman:hasImplementationManifest" resource="ex:implementationManifest2" />
+<div class="mini-grid">
+                    <div class="mini" resource="ex:strategy3" typeof="secuman:Strategy">
+                      <div class="subtle">Strategy</div>
+                      <meta property="dc:identifier" content="s3">
+                      <div class="value" property="rdfs:label">Durch zwei Factor Authentifizierung, Likelihood reduzieren, präventiv, damit nur befugte/vertrauenswürdige Personen Zugriff haben</div>
+                    </div>
+
+                    <div class="mini" resource="ex:interventionMethod2" typeof="secuman:InterventionMethod">
+                      <div class="subtle">Intervention method</div>
+                      <meta property="dc:identifier" content="im2">
+                      <div class="value" property="rdfs:label">Aktivierung von 2FA mit Authenticator-App</div>
+                    </div>
+
+                    <!-- Shared location/context resources are shown again with plain visible text, but without RDFa, so the RDF graph is still defined only once. -->
+                    <div class="mini">
+                      <div class="subtle">Location of intervention</div>
+                      <div class="value">Ort: Login-Service des internen Mitarbeitersystems („intranet.company.com/login“)</div>
+                    </div>
+
+                    <div class="mini">
+                      <div class="subtle">Organisational context</div>
+                      <div class="value">Kontext: Konzernrichtlinie „Access Control 101“. Verantwortlich: IT-Security-Team. Lebenszyklusphase: Operation</div>
+                    </div>
+
+                    <div class="mini" resource="ex:assumption2" typeof="secuman:Assumption">
+                      <div class="subtle">Assumption</div>
+                      <meta property="dc:identifier" content="a2">
+                      <div class="value" property="rdfs:label">Authenticator- App wird nicht auf fest installiertem Gerät direkt daneben genutzt</div>
+                    </div>
+
+                    <div class="mini" resource="ex:implementationManifest2" typeof="secuman:ImplementationManifest">
+                      <div class="subtle">Implementation manifest</div>
+                      <meta property="dc:identifier" content="im2">
+                      <div class="value" property="rdfs:label">Verweis auf Konfiguration, dass zweiter Faktor aktiviert ist</div>
+                    </div>
+
+                    <div class="mini" resource="ex:impactAssessment6" typeof="secuman:ImpactAssessment">
+                      <div class="subtle">Safety impact assessment</div>
+                      <meta property="dc:identifier" content="ia6">
+                      <meta property="secuman:isAffected" content="false" datatype="xsd:boolean">
+                      <div class="value">Affected: false</div>
+                    </div>
+
+                    <div class="mini" resource="ex:impactAssessment7" typeof="secuman:ImpactAssessment">
+                      <div class="subtle">Security impact assessment</div>
+                      <meta property="dc:identifier" content="ia7">
+                      <meta property="secuman:isAffected" content="false" datatype="xsd:boolean">
+                      <div class="value">Affected: false</div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </article>
+  </div>
+</body>
+</html>
